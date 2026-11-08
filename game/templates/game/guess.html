@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数当てゲーム</title>
+</head>
+<body>
+    <h1>数当てゲーム</h1>
+    {% if not game.is_finished %}
+    <h2>{{ game.attempts|add:1 }}回目の予想</h2>
+    <form method="post" action="{% url 'index' %}">
+        {% csrf_token %}
+        <table><tbody>{{ form.as_table }}</tbody></table>
+        <button type="submit">回答</button>
+    </form>
+    {# <p>中断する場合は<a href="{% url 'index_jamp' %}">ココ</a>をクリックしてください</p> #}
+    {% else %}
+    <p>正解です！！！</p>
+    <p>もう一度プレイする場合は<a href="{% url 'index' %}">ココ</a>をクリックしてください</p>
+    {% endif %}
+    
+    {% if guess is not None %}
+    <h2>前回の予想結果</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>予想回数</th><th>予想した数字</th><th>ヒット数</th><th>ブロウ数</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ guess.attempts }}</td>
+                <td>{{ guess.number }}</td>
+                <td>{{ guess.hit }}</td>
+                <td>{{ guess.blow }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>
