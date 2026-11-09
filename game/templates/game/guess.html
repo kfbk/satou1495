@@ -6,6 +6,14 @@
 </head>
 <body>
     <h1>数当てゲーム</h1>
+    <div>
+        <div>
+            ヒット数とは：
+        </div>
+        <div>
+            ブロウ数とは：
+        </div>
+    </div>
     {% if not game.is_finished %}
     <h2>{{ game.attempts|add:1 }}回目の予想</h2>
     <form method="post" action="{% url 'index' %}">
